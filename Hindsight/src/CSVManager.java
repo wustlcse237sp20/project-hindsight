@@ -24,8 +24,8 @@ public class CSVManager {
                 collector.addPoint(nextEntry);
             }
             collector.printPoints();
-            ChartGenerator chartGenerator = new ChartGenerator();
-            chartGenerator.generateChart();
+//            ChartGenerator chartGenerator = new ChartGenerator();
+//            chartGenerator.generateChart();
         } catch (Exception e){
             e.printStackTrace();
         }

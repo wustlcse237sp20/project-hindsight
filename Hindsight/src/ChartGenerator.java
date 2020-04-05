@@ -16,6 +16,6 @@ public class ChartGenerator {
 
         LineChart lineChart = new LineChart(xAxis, yAxis);
         XYChart.Series dataSeries = new XYChart.Series();
-        
+
     }
 }
