@@ -1,5 +1,6 @@
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
+import javafx.stage.Stage;
 
 import javax.xml.crypto.Data;
 import java.io.File;
@@ -24,8 +25,9 @@ public class CSVManager {
                 collector.addPoint(nextEntry);
             }
             collector.printPoints();
-//            ChartGenerator chartGenerator = new ChartGenerator();
-//            chartGenerator.generateChart();
+            Stage stage = new Stage();
+            ChartGenerator chartGenerator = new ChartGenerator(stage);
+            chartGenerator.generateChart(collector);
         } catch (Exception e){
             e.printStackTrace();
         }
