@@ -24,7 +24,6 @@ public class CSVManager {
             while((nextEntry = csvReader.readNext()) != null){
                 collector.addPoint(nextEntry);
             }
-            collector.printPoints();
             Stage stage = new Stage();
             ChartGenerator chartGenerator = new ChartGenerator(stage);
             chartGenerator.generateChart(collector);

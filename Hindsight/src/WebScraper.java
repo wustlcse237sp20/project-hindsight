@@ -20,6 +20,7 @@ public class WebScraper {
             final Document document = Jsoup.connect(urlPath).get();
             final Element element = (checkMarketsOpen() ? document.selectFirst("span.push-data.aktien-big-font.text-nowrap.no-padding-at-all"): document.selectFirst("span.big-font-small.text-nowrap.premarket-font"));
             String price = element.text();
+//            System.out.println(price);
             CSVManager csvManager = new CSVManager();
             csvManager.writeToFile(price);
             csvManager.readFile();
@@ -31,7 +32,14 @@ public class WebScraper {
     public boolean checkMarketsOpen() throws ParseException {
         Date date = new Date() ;
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm") ;
+        SimpleDateFormat currentDay = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
+        String day = currentDay.format(date);
+//        System.out.println(day);
         dateFormat.format(date);
+
+        if(day.equals("Saturday") || day.equals("Sunday")){
+            return true;
+        }
 
         if(dateFormat.parse(dateFormat.format(date)).after(dateFormat.parse("8:30")) && (dateFormat.parse(dateFormat.format(date)).before(dateFormat.parse("15:00"))))
         {

@@ -1,3 +1,4 @@
+import com.sun.xml.internal.bind.v2.TODO;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
@@ -9,8 +10,14 @@ import javafx.stage.Stage;
 public class ChartGenerator {
     final private String filePath = "Hindsight/docs/apple.csv";
     private Stage stage;
+    XYChart.Series dataSeries;
+
+    public ChartGenerator(){
+        dataSeries = new XYChart.Series();
+    }
 
     public ChartGenerator(Stage stage) {
+        dataSeries = new XYChart.Series();
         this.stage = stage;
     }
 
@@ -24,13 +31,9 @@ public class ChartGenerator {
         yAxis.setLabel("Stock Price");
 
         LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
-        XYChart.Series dataSeries = new XYChart.Series();
         dataSeries.setName("Prices");
-        int counter = 1;
-        for(String[] dataPoint: collector.getListPoints()){
-            dataSeries.getData().add(new XYChart.Data<>(counter, Double.parseDouble(dataPoint[1])));
-            counter++;
-        }
+        double maxProfit = caluclateMaxProfit(collector);
+        System.out.println(maxProfit);
         lineChart.getData().add(dataSeries);
 
         StackPane layout = new StackPane();
@@ -40,4 +43,30 @@ public class ChartGenerator {
         stage.setScene(scene);
         stage.show();
     }
+
+    public double caluclateMaxProfit(DatapointCollector collector){
+        int counter = 0;
+        double runningMaxProfit = 0;
+        double minPrice = Integer.MAX_VALUE;
+        String[] buyingPoint = {};
+        String[] sellingPoint = {};
+        for(String[] dataPoint: collector.getListPoints()){
+            if(dataPoint.length != 2){
+                continue;
+            }
+            double stockPrice = Double.parseDouble(dataPoint[1]);
+            if(stockPrice < minPrice){
+                buyingPoint = dataPoint;
+                minPrice = stockPrice;
+            }
+            if(stockPrice - minPrice > runningMaxProfit){
+                sellingPoint = dataPoint;
+                runningMaxProfit = stockPrice - minPrice;
+            }
+            dataSeries.getData().add(new XYChart.Data<>(counter, stockPrice));
+            counter++;
+        }
+        return runningMaxProfit;
+    }
+
 }
