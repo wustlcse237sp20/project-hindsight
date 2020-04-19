@@ -1,12 +1,14 @@
 import org.junit.Assert;
 
+import java.text.ParseException;
+
 public class ChartGeneratorTest {
 
     DatapointCollector collector = new DatapointCollector();
     ChartGenerator chartGenerator = new ChartGenerator();
 
     @org.junit.jupiter.api.Test
-    void testZeroPrice() {
+    void testZeroPrice() throws ParseException {
         for (int i = 10; i >= 0; i--) {
             String[] point = {"test", Integer.toString(i)};
             collector.addPoint(point);
@@ -16,7 +18,7 @@ public class ChartGeneratorTest {
     }
 
     @org.junit.jupiter.api.Test
-    void testProfitEqualsFifty(){
+    void testProfitEqualsFifty() throws ParseException {
         for (int i = 0; i <= 10; i++) {
             String[] point = {"test" + i, Integer.toString(5 * i)};
             collector.addPoint(point);
