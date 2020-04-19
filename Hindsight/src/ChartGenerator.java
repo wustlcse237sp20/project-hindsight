@@ -1,10 +1,9 @@
-import com.sun.xml.internal.bind.v2.TODO;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -42,6 +41,15 @@ public class ChartGenerator {
 
         Scene scene = new Scene(layout, 600, 400);
         stage.setScene(scene);
+
+        for (XYChart.Series<Number, Number> s : lineChart.getData()) {
+            for (XYChart.Data<Number, Number> d : s.getData()){
+                Tooltip tooltip = new Tooltip();
+                tooltip.setText("Price: "+ d.getYValue());
+                Tooltip.install(d.getNode(),tooltip);
+                System.out.println(d.getYValue());
+            }
+        }
         stage.show();
     }
 
