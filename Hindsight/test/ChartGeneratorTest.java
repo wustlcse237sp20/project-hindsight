@@ -18,7 +18,7 @@ public class ChartGeneratorTest {
     @org.junit.jupiter.api.Test
     void testProfitEqualsFifty(){
         for (int i = 0; i <= 10; i++) {
-            String[] point = {"test", Integer.toString(5 * i)};
+            String[] point = {"test" + i, Integer.toString(5 * i)};
             collector.addPoint(point);
         }
         double maxProfit = chartGenerator.caluclateMaxProfit(collector);

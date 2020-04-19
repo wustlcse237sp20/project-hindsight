@@ -4,6 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -66,7 +67,18 @@ public class ChartGenerator {
             dataSeries.getData().add(new XYChart.Data<>(counter, stockPrice));
             counter++;
         }
+        showDialogBox(buyingPoint, sellingPoint);
         return runningMaxProfit;
     }
+
+    public void showDialogBox(String[] buyingPoint, String[] sellingPoint){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Buying Summary");
+        alert.setHeaderText("Optimal Strategy for Apple");
+        alert.setContentText("Purchase Date: " + buyingPoint[0] + " @ $" + buyingPoint[1] + "\nSell Date: " + sellingPoint[0] + " @ $" + sellingPoint[1]);
+
+        alert.showAndWait();
+    }
+
 
 }
