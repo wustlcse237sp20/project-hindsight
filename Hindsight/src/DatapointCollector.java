@@ -16,6 +16,9 @@ public class DatapointCollector {
         Iterator iterator = listPoints.iterator();
         while (iterator.hasNext()){
             String[] point = (String[]) iterator.next();
+            if(point.length != 2){
+                continue;
+            }
             System.out.println(point[0] + ": " + point[1]);
         }
     }

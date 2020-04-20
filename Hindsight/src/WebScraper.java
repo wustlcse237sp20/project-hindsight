@@ -31,7 +31,13 @@ public class WebScraper {
     public boolean checkMarketsOpen() throws ParseException {
         Date date = new Date() ;
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm") ;
+        SimpleDateFormat currentDay = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
+        String day = currentDay.format(date);
         dateFormat.format(date);
+
+        if(day.equals("Saturday") || day.equals("Sunday")){
+            return true;
+        }
 
         if(dateFormat.parse(dateFormat.format(date)).after(dateFormat.parse("8:30")) && (dateFormat.parse(dateFormat.format(date)).before(dateFormat.parse("15:00"))))
         {
