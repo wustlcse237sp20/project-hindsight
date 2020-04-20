@@ -10,7 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-//import javafx.scene.control.Alert;
+import javafx.scene.control.Alert;
 
 public class ChartGenerator {
     final private String filePath = "Hindsight/docs/apple.csv";
@@ -45,7 +45,7 @@ public class ChartGenerator {
         StackPane layout = new StackPane();
         layout.getChildren().add(lineChart);
 
-        Scene scene = new Scene(layout, 600, 400);
+        Scene scene = new Scene(layout, 750, 500);
         stage.setScene(scene);
 
         for (XYChart.Series<Date, Number> s : lineChart.getData()) {
@@ -53,7 +53,6 @@ public class ChartGenerator {
                 Tooltip tooltip = new Tooltip();
                 tooltip.setText("Date: " + dateFormat.format(d.getXValue()) + "\n" + "Price: "+ d.getYValue());
                 Tooltip.install(d.getNode(),tooltip);
-                System.out.println(d.getXValue());
             }
         }
         stage.show();
@@ -83,18 +82,19 @@ public class ChartGenerator {
             dataSeries.getData().add(new XYChart.Data<Date, Number>(dateFormat.parse(dataPoint[0]), stockPrice));
             counter++;
         }
-       // showDialogBox(buyingPoint, sellingPoint);
+        showDialogBox(buyingPoint, sellingPoint, runningMaxProfit);
         return runningMaxProfit;
     }
 
-//    public void showDialogBox(String[] buyingPoint, String[] sellingPoint){
-//        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//        alert.setTitle("Buying Summary");
-//        alert.setHeaderText("Optimal Strategy for Apple");
-//        alert.setContentText("Purchase Date: " + buyingPoint[0] + " @ $" + buyingPoint[1] + "\nSell Date: " + sellingPoint[0] + " @ $" + sellingPoint[1]);
-//
-//        alert.showAndWait();
-//    }
+    public void showDialogBox(String[] buyingPoint, String[] sellingPoint, double profit){
+        profit = Math.floor(profit * 100) / 100;
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Buying Summary");
+        alert.setHeaderText("Optimal Strategy for Apple");
+        alert.setContentText("Purchase Date: " + buyingPoint[0] + " @ $" + buyingPoint[1] + "\nSell Date: " + sellingPoint[0] + " @ $" + sellingPoint[1] + "\n$Profit: " + profit);
+
+        alert.showAndWait();
+    }
 
 
 }
