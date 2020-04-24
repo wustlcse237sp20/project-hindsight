@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class CSVManager {
-    private String path = "Hindsight/docs/apple.csv";
+    private String path = "apple.csv";
 
     public CSVManager() {
 
