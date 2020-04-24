@@ -5,5 +5,6 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES />
+    <jarDirectory url="jar://$PROJECT_DIR$/Hindsight/libraries/jsoup-1.13.1.jar!/" recursive="false" />
   </library>
 </component>
