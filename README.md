@@ -10,5 +10,7 @@
 
 <h3>Instructions:</h3>
 <ul type="circle">
-  <li>Do this</li>
+  <li>Via Terminal, clone repository from branch command_line_script.</li>
+  <li>Once in root Hindsight directory, use command sh to run project-compiler.sh.</li>
+  <li>To exit, simply quite Java application on desktop.</li>
 </ul>
