@@ -1,11 +1,14 @@
+import javafx.scene.chart.XYChart;
 import org.junit.Assert;
 
 import java.text.ParseException;
+import java.util.Date;
 
 public class ChartGeneratorTest {
 
     DatapointCollector collector = new DatapointCollector();
     ChartGenerator chartGenerator = new ChartGenerator();
+    XYChart.Series<Date, Number> dataSeries = new XYChart.Series<>();
 
     @org.junit.jupiter.api.Test
     void testZeroPrice() throws ParseException {
@@ -13,7 +16,7 @@ public class ChartGeneratorTest {
             String[] point = {"2020-01-01", Integer.toString(i)};
             collector.addPoint(point);
         }
-        double maxProfit = chartGenerator.caluclateMaxProfit(collector);
+        double maxProfit = collector.calculateMaxProfit(dataSeries).getMaxProfit();
         Assert.assertEquals(0, maxProfit, 0);
     }
 
@@ -23,7 +26,7 @@ public class ChartGeneratorTest {
             String[] point = {"2020-01-01" + i, Integer.toString(5 * i)};
             collector.addPoint(point);
         }
-        double maxProfit = chartGenerator.caluclateMaxProfit(collector);
+        double maxProfit = collector.calculateMaxProfit(dataSeries).getMaxProfit();
         Assert.assertEquals(50, maxProfit, 0);
     }
 
@@ -43,7 +46,7 @@ public class ChartGeneratorTest {
             collector.addPoint(point);
         }
         try{
-            double maxProfit = chartGenerator.caluclateMaxProfit(collector);
+            double maxProfit = collector.calculateMaxProfit(dataSeries).getMaxProfit();
             Assert.assertEquals(100, maxProfit, 0);
         } catch(Exception e) {
             e.printStackTrace();

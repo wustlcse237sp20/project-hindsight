@@ -34,7 +34,7 @@ public class WebScraper {
         SimpleDateFormat currentDay = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
         String day = currentDay.format(date);
         dateFormat.format(date);
-
+        System.out.println(day);
         if(day.equals("Saturday") || day.equals("Sunday")){
             return true;
         }
