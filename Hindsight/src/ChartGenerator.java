@@ -2,6 +2,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -10,10 +11,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javafx.scene.control.Alert;
-
 public class ChartGenerator {
-    final private String filePath = "Hindsight/docs/apple.csv";
+    final private String filePath = "Hindsight/src/appl.csv";
     private Stage stage;
     XYChart.Series<Date, Number> dataSeries;
 
@@ -74,7 +73,7 @@ public class ChartGenerator {
                 buyingPoint = dataPoint;
                 minPrice = stockPrice;
             }
-            if(stockPrice - minPrice > runningMaxProfit){
+            if(stockPrice - minPrice >= runningMaxProfit){
                 sellingPoint = dataPoint;
                 runningMaxProfit = stockPrice - minPrice;
             }
@@ -91,8 +90,12 @@ public class ChartGenerator {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Buying Summary");
         alert.setHeaderText("Optimal Strategy for Apple");
-        alert.setContentText("Purchase Date: " + buyingPoint[0] + " @ $" + buyingPoint[1] + "\nSell Date: " + sellingPoint[0] + " @ $" + sellingPoint[1] + "\n$Profit: " + profit);
+        System.out.println(buyingPoint[0]);
+        System.out.println(buyingPoint[1]);
+        System.out.println(sellingPoint[0]);
+        System.out.println(sellingPoint[1]);
 
+        alert.setContentText("Purchase Date: " + buyingPoint[0] + " @ $" + buyingPoint[1] + "\nSell Date: " + sellingPoint[0] + " @ $" + sellingPoint[1] + "\n$Profit: " + profit);
         alert.showAndWait();
     }
 

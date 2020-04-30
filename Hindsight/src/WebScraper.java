@@ -1,33 +1,36 @@
-import com.opencsv.CSVWriter;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class WebScraper {
-    private String urlPath = "https://markets.businessinsider.com/stocks/aapl-stock";
-
+    private String urlPath = "https://markets.businessinsider.com/stocks/";
+    public String[] stocks = {"aapl", "ba", "gs", "axp", "mmm", "csco", "jpm", "mcd","nke","msft"};
+    private String urlEnd = "-stock";
     public WebScraper() {
 
     }
 
-    public void scrapeWebsite(){
-        try{
-            final Document document = Jsoup.connect(urlPath).get();
-            final Element element = (checkMarketsOpen() ? document.selectFirst("span.push-data.aktien-big-font.text-nowrap.no-padding-at-all"): document.selectFirst("span.big-font-small.text-nowrap.premarket-font"));
-            String price = element.text();
-            CSVManager csvManager = new CSVManager();
-            csvManager.writeToFile(price);
-            csvManager.readFile();
-        } catch (Exception e){
-            e.printStackTrace();
+    public void scrapeWebsite() {
+        for (int i = 0; i < stocks.length; i++) {
+            String url = urlPath + stocks[i] + urlEnd;
+            System.out.print(stocks[i]);
+            try {
+                final Document document = Jsoup.connect(url).get();
+                final Element element = (checkMarketsOpen() ? document.selectFirst("span.push-data.aktien-big-font.text-nowrap.no-padding-at-all") : document.selectFirst("span.big-font-small.text-nowrap.premarket-font"));
+                String price = element.text();
+                CSVManager csvManager = new CSVManager();
+                csvManager.writeToFile(price,stocks[i]);
+                System.out.println(price);
+                csvManager.readFile(stocks[i]);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
-
     public boolean checkMarketsOpen() throws ParseException {
         Date date = new Date() ;
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm") ;
