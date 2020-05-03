@@ -43,10 +43,11 @@ public class DatapointCollector {
                 buyingPoint = dataPoint;
                 minPrice = stockPrice;
             }
-            if(stockPrice - minPrice > runningMaxProfit){
+            if(stockPrice - minPrice >= runningMaxProfit){
                 sellingPoint = dataPoint;
                 runningMaxProfit = stockPrice - minPrice;
             }
+
             dataSeries.getData().add(new XYChart.Data<>(dateFormat.parse(dataPoint[0]), stockPrice));
         }
         return new DialogBoxData(runningMaxProfit, buyingPoint, sellingPoint);

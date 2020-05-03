@@ -16,8 +16,8 @@ public class ChartGeneratorTest {
             String[] point = {"2020-01-01", Integer.toString(i)};
             collector.addPoint(point);
         }
-        double maxProfit = collector.calculateMaxProfit(dataSeries).getMaxProfit();
-        Assert.assertEquals(0, maxProfit, 0);
+        DialogBoxData maxProfit = collector.calculateMaxProfit(dataSeries);
+        Assert.assertEquals(0, maxProfit.getMaxProfit(), 0);
     }
 
     @org.junit.jupiter.api.Test
@@ -26,8 +26,8 @@ public class ChartGeneratorTest {
             String[] point = {"2020-01-01" + i, Integer.toString(5 * i)};
             collector.addPoint(point);
         }
-        double maxProfit = collector.calculateMaxProfit(dataSeries).getMaxProfit();
-        Assert.assertEquals(50, maxProfit, 0);
+        DialogBoxData maxProfit = collector.calculateMaxProfit(dataSeries);
+        Assert.assertEquals(50, maxProfit.getMaxProfit(), 0);
     }
 
     @org.junit.jupiter.api.Test
@@ -46,8 +46,8 @@ public class ChartGeneratorTest {
             collector.addPoint(point);
         }
         try{
-            double maxProfit = collector.calculateMaxProfit(dataSeries).getMaxProfit();
-            Assert.assertEquals(100, maxProfit, 0);
+            DialogBoxData maxProfit = collector.calculateMaxProfit(dataSeries);
+            Assert.assertEquals(100, maxProfit.getMaxProfit(), 0);
         } catch(Exception e) {
             e.printStackTrace();
         }
