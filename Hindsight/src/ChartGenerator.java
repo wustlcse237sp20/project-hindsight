@@ -15,10 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ChartGenerator {
-    final private String filePath = "apple.csv";
     private Stage stage;
     XYChart.Series<Date, Number> dataSeries;
-    Scene[] scenes = new Scene[5];
     public ChartGenerator(){
         dataSeries = new XYChart.Series();
     }

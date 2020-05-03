@@ -23,7 +23,7 @@ public class WebScraper {
             System.out.print(stocks_ticker[i]);
             try {
                 final Document document = Jsoup.connect(url).get();
-                final Element element = (checkMarketsOpen() ? document.selectFirst("span.push-data.aktien-big-font.text-nowrap.no-padding-at-all") : document.selectFirst("span.big-font-small.text-nowrap.premarket-font"));
+                final Element element = (checkHTMLTag() ? document.selectFirst("span.push-data.aktien-big-font.text-nowrap.no-padding-at-all") : document.selectFirst("span.big-font-small.text-nowrap.premarket-font"));
                 String price = element.text();
                 csvManager.writeToFile(price,stocks_name[i]);
                // csvManager.readFile(stocks_name[i]);
@@ -33,7 +33,7 @@ public class WebScraper {
         }
         csvManager.initialization();
     }
-    public boolean checkMarketsOpen() throws ParseException {
+    public boolean checkHTMLTag() throws ParseException {
         Date date = new Date() ;
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm") ;
         SimpleDateFormat currentDay = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely

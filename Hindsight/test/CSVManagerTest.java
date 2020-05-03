@@ -10,8 +10,7 @@ import java.time.format.DateTimeFormatter;
 public class CSVManagerTest {
     String path = "apple.csv";
     String samplePath = "apple_test.csv";
-    CSVManager manager = new CSVManager();
-    String samplePrice = "$100";
+    String samplePrice = "100";
 
     @org.junit.jupiter.api.Test
     void testReadPriceNumPoints() throws IOException, CsvValidationException {
