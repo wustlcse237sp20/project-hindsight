@@ -8,24 +8,26 @@ import java.util.Date;
 
 public class WebScraper {
     private String urlPath = "https://markets.businessinsider.com/stocks/";
-    public String[] stocks = {"aapl", "ba", "gs", "axp", "mmm", "csco", "jpm", "mcd","nke","msft"};
+    public String[] stocks_ticker = {"aapl", "ba", "gs", "axp", "mmm"};
+    public String[] stocks_name = {"Apple", "Boeing", "Goldman Sachs", "American Express", "3M"};
     private String urlEnd = "-stock";
     public WebScraper() {
+
 
     }
 
     public void scrapeWebsite() {
-        for (int i = 0; i < stocks.length; i++) {
-            String url = urlPath + stocks[i] + urlEnd;
-            System.out.print(stocks[i]);
+        for (int i = 0; i < stocks_ticker.length; i++) {
+            String url = urlPath + stocks_ticker[i] + urlEnd;
+            System.out.print(stocks_ticker[i]);
             try {
                 final Document document = Jsoup.connect(url).get();
                 final Element element = (checkMarketsOpen() ? document.selectFirst("span.push-data.aktien-big-font.text-nowrap.no-padding-at-all") : document.selectFirst("span.big-font-small.text-nowrap.premarket-font"));
                 String price = element.text();
                 CSVManager csvManager = new CSVManager();
-                csvManager.writeToFile(price,stocks[i]);
-                System.out.println(price);
-                csvManager.readFile(stocks[i]);
+                csvManager.writeToFile(price,stocks_name[i]);
+                csvManager.initialization();
+               // csvManager.readFile(stocks_name[i]);
             } catch (Exception e) {
                 e.printStackTrace();
             }
