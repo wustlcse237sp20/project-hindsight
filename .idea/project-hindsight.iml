@@ -36,16 +36,11 @@
         <SOURCES />
       </library>
     </orderEntry>
-<<<<<<< HEAD
-    <orderEntry type="library" name="lib" level="project" />
-    <orderEntry type="library" name="commons-lang3-3.101" level="project" />
-=======
     <orderEntry type="library" name="jsoup-1.13.1" level="project" />
     <orderEntry type="library" name="commons-text-1.8" level="project" />
     <orderEntry type="library" name="commons-lang3-3.10" level="project" />
     <orderEntry type="library" name="commons-collections4-4.4" level="project" />
     <orderEntry type="library" name="commons-beanutils-1.9.4" level="project" />
     <orderEntry type="library" name="opencsv-5.1" level="project" />
->>>>>>> master
   </component>
 </module>
