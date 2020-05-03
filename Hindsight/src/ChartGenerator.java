@@ -2,21 +2,22 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javafx.scene.control.Alert;
-
 public class ChartGenerator {
     final private String filePath = "apple.csv";
     private Stage stage;
     XYChart.Series<Date, Number> dataSeries;
-
+    Scene[] scenes = new Scene[5];
     public ChartGenerator(){
         dataSeries = new XYChart.Series();
     }
@@ -26,9 +27,8 @@ public class ChartGenerator {
         this.stage = stage;
     }
 
-
-    public void generateChart(DatapointCollector collector) throws ParseException {
-        stage.setTitle("Apple Price Tracker");
+    public void generateChart(DatapointCollector collector, String stock) throws ParseException {
+        stage.setTitle(stock + " Price Tracker");
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         DateAxis xAxis = new DateAxis();
@@ -36,17 +36,25 @@ public class ChartGenerator {
 
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Stock Price");
+        Button button1 = new Button("back to main page");
+        CSVManager csvManager = new CSVManager();
+        button1.setOnAction(e->csvManager.initialization());
         LineChart<Date, Number> lineChart = new LineChart<Date, Number>(xAxis, yAxis);
         dataSeries.setName("Prices");
-
+        double maxProfit = caluclateMaxProfit(collector, stock);
+        System.out.println(maxProfit);
         DialogBoxData dialogBoxData = collector.calculateMaxProfit(dataSeries);
         showDialogBox(dialogBoxData);
-        lineChart.getData().add(dataSeries);
-
+        
+	lineChart.getData().add(dataSeries);
+        VBox vbox = new VBox(20);
         StackPane layout = new StackPane();
-        layout.getChildren().add(lineChart);
-
-        Scene scene = new Scene(layout, 750, 500);
+        StackPane chartPane = new StackPane();
+        StackPane buttonPane = new StackPane();
+        buttonPane.getChildren().add(button1);
+        chartPane.getChildren().add(lineChart);
+        vbox.getChildren().addAll(chartPane,buttonPane);
+        Scene scene = new Scene(vbox, 750, 500);
         stage.setScene(scene);
 
 
@@ -60,15 +68,46 @@ public class ChartGenerator {
         stage.show();
     }
 
-    public void showDialogBox(DialogBoxData dialogBoxData){
-        double profit = Math.floor(dialogBoxData.getMaxProfit() * 100) / 100;
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Buying Summary");
-        alert.setHeaderText("Optimal Strategy for Apple");
-        alert.setContentText("Purchase Date: " + dialogBoxData.getBuyingPoint()[0]+ " @ $" + dialogBoxData.getBuyingPoint()[1] + "\nSell Date: " + dialogBoxData.getSellingPoint()[0] + " @ $" + dialogBoxData.getSellingPoint()[1] + "\nProfit: $" + profit);
+<<<<<<< HEAD
+    public double caluclateMaxProfit(DatapointCollector collector, String stock) throws ParseException {
+        int counter = 0;
+        double runningMaxProfit = 0;
+        double minPrice = Integer.MAX_VALUE;
+        String[] buyingPoint = {};
+        String[] sellingPoint = {};
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        for(String[] dataPoint: collector.getListPoints()){
+            if(dataPoint.length != 2){
+                continue;
+            }
+            double stockPrice = Double.parseDouble(dataPoint[1]);
+            if(stockPrice < minPrice){
+                buyingPoint = dataPoint;
+                minPrice = stockPrice;
+            }
+            if(stockPrice - minPrice >= runningMaxProfit){
+                sellingPoint = dataPoint;
+                runningMaxProfit = stockPrice - minPrice;
+            }
 
-        alert.showAndWait();
+            dataSeries.getData().add(new XYChart.Data<Date, Number>(dateFormat.parse(dataPoint[0]), stockPrice));
+            System.out.println(stockPrice);
+            counter++;
+        }
+        showDialogBox(buyingPoint, sellingPoint, runningMaxProfit, stock);
+        return runningMaxProfit;
     }
 
-
+    public void showDialogBox(String[] buyingPoint, String[] sellingPoint, double profit, String stock){
+        profit = Math.floor(profit * 100) / 100;
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Buying Summary");
+        alert.setHeaderText("Optimal Strategy for " + stock);
+        System.out.println(buyingPoint[0]);
+        System.out.println(buyingPoint[1]);
+        System.out.println(sellingPoint[0]);
+        System.out.println(sellingPoint[1]);
+        alert.setContentText("Purchase Date: " + buyingPoint[0] + " @ $" + buyingPoint[1] + "\nSell Date: " + sellingPoint[0] + " @ $" + sellingPoint[1] + "\n$Profit: " + profit);
+        alert.showAndWait();
+    }
 }
