@@ -17,6 +17,7 @@ public class WebScraper {
     }
 
     public void scrapeWebsite() {
+        CSVManager csvManager = new CSVManager();
         for (int i = 0; i < stocks_ticker.length; i++) {
             String url = urlPath + stocks_ticker[i] + urlEnd;
             System.out.print(stocks_ticker[i]);
@@ -24,14 +25,13 @@ public class WebScraper {
                 final Document document = Jsoup.connect(url).get();
                 final Element element = (checkMarketsOpen() ? document.selectFirst("span.push-data.aktien-big-font.text-nowrap.no-padding-at-all") : document.selectFirst("span.big-font-small.text-nowrap.premarket-font"));
                 String price = element.text();
-                CSVManager csvManager = new CSVManager();
                 csvManager.writeToFile(price,stocks_name[i]);
-                csvManager.initialization();
                // csvManager.readFile(stocks_name[i]);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        csvManager.initialization();
     }
     public boolean checkMarketsOpen() throws ParseException {
         Date date = new Date() ;

@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.text.ParseException;
@@ -34,16 +35,22 @@ public class ChartGenerator {
         xAxis.setLabel("Date");
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Stock Price");
-        Button button1 = new Button("next");
+        Button button1 = new Button("back to main page");
+        CSVManager csvManager = new CSVManager();
+        button1.setOnAction(e->csvManager.initialization());
         LineChart<Date, Number> lineChart = new LineChart<Date, Number>(xAxis, yAxis);
         dataSeries.setName("Prices");
         double maxProfit = caluclateMaxProfit(collector, stock);
         System.out.println(maxProfit);
         lineChart.getData().add(dataSeries);
+        VBox vbox = new VBox(20);
         StackPane layout = new StackPane();
-        layout.getChildren().add(button1);
-        layout.getChildren().add(lineChart);
-        Scene scene = new Scene(layout, 750, 500);
+        StackPane chartPane = new StackPane();
+        StackPane buttonPane = new StackPane();
+        buttonPane.getChildren().add(button1);
+        chartPane.getChildren().add(lineChart);
+        vbox.getChildren().addAll(chartPane,buttonPane);
+        Scene scene = new Scene(vbox, 750, 500);
         stage.setScene(scene);
 
         for (XYChart.Series<Date, Number> s : lineChart.getData()) {
@@ -97,6 +104,7 @@ public class ChartGenerator {
         alert.setContentText("Purchase Date: " + buyingPoint[0] + " @ $" + buyingPoint[1] + "\nSell Date: " + sellingPoint[0] + " @ $" + sellingPoint[1] + "\n$Profit: " + profit);
         alert.showAndWait();
     }
+
 
 
 }
