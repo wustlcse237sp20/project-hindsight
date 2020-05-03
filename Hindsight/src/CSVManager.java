@@ -50,7 +50,7 @@ public class CSVManager {
             }
             Stage stage = new Stage();
             ChartGenerator chartGenerator = new ChartGenerator(stage);
-            chartGenerator.generateChart(collector);
+            chartGenerator.generateChart(collector, stock);
         } catch (Exception e){
             e.printStackTrace();
         }

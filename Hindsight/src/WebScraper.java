@@ -33,6 +33,7 @@ public class WebScraper {
                 e.printStackTrace();
             }
         }
+        csvManager.initialization();
     }
     public boolean checkHTMLTag() throws ParseException {
         Date date = new Date() ;
