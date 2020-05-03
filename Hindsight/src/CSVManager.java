@@ -14,10 +14,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class CSVManager {
-    private String path = "Hindsight/src/";
     private String fileFormat = ".csv";
     private Stage stage;
-    public String[] stocksName = {"Apple", "Boeing", "Goldman Sachs", "American Express", "3M","Tesla","Amazon","Alphabet A", "Netflix"};
+    public String[] stocksName = {"Apple", "Boeing", "Goldman Sachs", "American Express", "3M","Tesla", "Netflix"};
     private ChartGenerator chartGenerator;
 
     public CSVManager() {
@@ -35,15 +34,14 @@ public class CSVManager {
         }
         layout.getChildren().add(vbox);
         layout.setAlignment(vbox, Pos.CENTER);
-        Scene scene = new Scene(layout, 750, 500);
-        this.stage.setScene(scene);
+        this.stage.setScene(new Scene(layout, 750, 500));
         this.stage.setTitle("Stock Price Monitor");
         this.stage.show();
     }
 
     public void readFile(String stock){
         try{
-            CSVReader csvReader = new CSVReader(new FileReader(path+stock+fileFormat));
+            CSVReader csvReader = new CSVReader(new FileReader(stock+fileFormat));
             DatapointCollector collector = new DatapointCollector();
             String[] nextEntry;
             while((nextEntry = csvReader.readNext()) != null){
@@ -61,7 +59,7 @@ public class CSVManager {
         String currentDate = dtf.format(now);
 
         try{
-            File file = new File(path+stock+fileFormat);
+            File file = new File(stock+fileFormat);
             CSVWriter csvWriter = new CSVWriter(new FileWriter(file, true));
             String[] newEntry = {currentDate, price};
             csvWriter.writeNext(newEntry);
