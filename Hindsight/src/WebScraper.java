@@ -8,8 +8,8 @@ import java.util.Date;
 
 public class WebScraper {
     private String urlPath = "https://markets.businessinsider.com/stocks/";
-    public String[] stocks_ticker = {"aapl", "ba", "gs", "axp", "mmm"};
-    public String[] stocks_name = {"Apple", "Boeing", "Goldman Sachs", "American Express", "3M"};
+    public String[] stocks_ticker = {"aapl", "ba", "gs", "axp", "mmm","tsla", "amzn", "googl", "nflx"};
+    public String[] stocks_name = {"Apple", "Boeing", "Goldman Sachs", "American Express", "3M","Tesla","Amazon","Alphabet A", "Netflix"};
     private String urlEnd = "-stock";
     public WebScraper() {
 
