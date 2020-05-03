@@ -10,8 +10,10 @@
 
 <h3>Instructions:</h3>
 <ul type="circle">
-  <li>Check Java version, hindsight may not support all java versions. java 1.8.0_131 or 1.8.0_202 should work.</li>
-  <li>Via Terminal, clone repository from branch command_line_script.</li>
+  <li>Check Java version, hindsight may not support all java versions. java 1.8.0_131 or 1.8.0_202 should work. If you are having difficulty updating java, please refer to this link: https://www.java.com/en/download/manual.jsp</li>
+  <li>Via Terminal, clone Hindsight repository</li>
   <li>Once in root Hindsight directory, use command sh to run project-compiler.sh.</li>
-  <li>To exit, simply quit Java application on desktop.</li>
+  <li>Hingsight is an easy to use interface that allows you to select from a variety of stocks to learn more about their price.</li>
+  <li>In clicking on a public company's ticker, you will be prompted with a possible opportunity to leverage the current stock price.</li>
+  <li>Once you are done using Hindsight, simply quit the java application on your desktop.</li>
 </ul>
