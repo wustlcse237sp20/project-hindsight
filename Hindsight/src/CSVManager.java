@@ -19,6 +19,7 @@ public class CSVManager {
     private Stage stage;
     public String[] stocksName = {"Apple", "Boeing", "Goldman Sachs", "American Express", "3M","Tesla","Amazon","Alphabet A", "Netflix"};
     private ChartGenerator chartGenerator;
+
     public CSVManager() {
         this.stage = new Stage();
         this.chartGenerator =  new ChartGenerator(this.stage);

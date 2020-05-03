@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ChartGenerator {
-    //final private String filePath = "Hindsight/src/appl.csv";
+    final private String filePath = "apple.csv";
     private Stage stage;
     XYChart.Series<Date, Number> dataSeries;
     Scene[] scenes = new Scene[5];
@@ -31,8 +31,9 @@ public class ChartGenerator {
         stage.setTitle(stock + " Price Tracker");
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        extfx.scene.chart.DateAxis xAxis = new extfx.scene.chart.DateAxis();
+        DateAxis xAxis = new DateAxis();
         xAxis.setLabel("Date");
+
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Stock Price");
         Button button1 = new Button("back to main page");
@@ -42,7 +43,10 @@ public class ChartGenerator {
         dataSeries.setName("Prices");
         double maxProfit = caluclateMaxProfit(collector, stock);
         System.out.println(maxProfit);
-        lineChart.getData().add(dataSeries);
+        DialogBoxData dialogBoxData = collector.calculateMaxProfit(dataSeries);
+        showDialogBox(dialogBoxData);
+        
+	lineChart.getData().add(dataSeries);
         VBox vbox = new VBox(20);
         StackPane layout = new StackPane();
         StackPane chartPane = new StackPane();
@@ -53,7 +57,8 @@ public class ChartGenerator {
         Scene scene = new Scene(vbox, 750, 500);
         stage.setScene(scene);
 
-        for (XYChart.Series<Date, Number> s : lineChart.getData()) {
+
+        for(XYChart.Series<Date, Number> s: lineChart.getData()){
             for (XYChart.Data<Date, Number> d : s.getData()){
                 Tooltip tooltip = new Tooltip();
                 tooltip.setText("Date: " + dateFormat.format(d.getXValue()) + "\n" + "Price: "+ d.getYValue());
@@ -63,6 +68,7 @@ public class ChartGenerator {
         stage.show();
     }
 
+<<<<<<< HEAD
     public double caluclateMaxProfit(DatapointCollector collector, String stock) throws ParseException {
         int counter = 0;
         double runningMaxProfit = 0;
@@ -104,7 +110,4 @@ public class ChartGenerator {
         alert.setContentText("Purchase Date: " + buyingPoint[0] + " @ $" + buyingPoint[1] + "\nSell Date: " + sellingPoint[0] + " @ $" + sellingPoint[1] + "\n$Profit: " + profit);
         alert.showAndWait();
     }
-
-
-
 }

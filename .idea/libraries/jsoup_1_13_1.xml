@@ -1,10 +1,9 @@
 <component name="libraryTable">
   <library name="jsoup-1.13.1">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/Hindsight/libraries/jsoup-1.13.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Hindsight/src/jsoup-1.13.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
-    <jarDirectory url="jar://$PROJECT_DIR$/Hindsight/libraries/jsoup-1.13.1.jar!/" recursive="false" />
   </library>
 </component>

@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  */
 
-package extfx.scene.chart;
+//package extfx.scene.chart;
 
 import com.sun.javafx.charts.ChartLayoutAnimator;
 import javafx.animation.KeyFrame;
@@ -115,7 +115,7 @@ public final class DateAxis extends Axis<Date> {
 
     /**
      * Stores the min and max date of the list of dates which is used.
-     * If {@link #autoRanging} is true, these values are used as lower and upper bounds.
+     * If is true, these values are used as lower and upper bounds.
      */
     private Date minDate, maxDate;
 
